@@ -2,8 +2,19 @@
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/") 
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
+
+(defun find-in (dir regexp)
+  (concat dir 
+	  (car (let ((default-directory dir))
+		 (file-expand-wildcards regexp)))))
+
+(add-to-list 'load-path (find-in "~/.emacs.d/elpa/" "dired+*"))
+(add-to-list 'load-path (find-in "~/.emacs.d/elpa/" "w32-browser*"))
 (require 'package)
+(require 'dired+)
+(require 'w32-browser)
 (package-initialize)
+
 
 ;;; Install packages if not yet installed
 (when (not package-archive-contents)
@@ -41,3 +52,6 @@
 ;;; Key bindings
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+
+
